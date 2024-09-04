@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Details</title>
+</head>
+<body>
+    <h1>Attendance Details</h1>
+    {% if attendance_details %}
+        {% if attendance_details.error %}
+            <p style="color: red;">Error: {{ attendance_details.error }}</p>
+        {% else %}
+            <h2>Details for {{ attendance_details['Name'] }} (Admin No: {{ attendance_details['AdminNo'] }})</h2>
+            <table border="1">
+                <tr>
+                    <th>Course Code</th>
+                    <th>Semester</th>
+                    <th>Registration No</th>
+                    <th>Admin No</th>
+                    <th>Name</th>
+                    <th>Total</th>
+                    <th>Present</th>
+                    <th>Absent</th>
+                    <th>OD</th>
+                    <th>Percentage</th>
+                </tr>
+                {% for record in attendance_details['Records'] %}
+                <tr>
+                    <td>{{ record['CCode'] }}</td>
+                    <td>{{ record['Semno'] }}</td>
+                    <td>{{ record['RegNo'] }}</td>
+                    <td>{{ record['AdmnNo'] }}</td>
+                    <td>{{ record['SName'] }}</td>
+                    <td>{{ record['Total'] }}</td>
+                    <td>{{ record['Present'] }}</td>
+                    <td>{{ record['Absent'] }}</td>
+                    <td>{{ record['OD'] }}</td>
+                    <td>{{ record['Percentage'] }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+    {% else %}
+        <p>No details available.</p>
+    {% endif %}
+    <br>
+    <a href="{{ url_for('index') }}">Back to Home</a>
+</body>
+</html>
